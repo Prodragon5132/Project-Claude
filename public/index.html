@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SafePaste — strip personal data before you paste it into an AI</title>
+<meta name="description" content="Remove names, emails, card numbers, health IDs and API keys from any text before you paste it into ChatGPT or Claude — then put the real values back into the answer. Runs entirely in your browser. Nothing is uploaded.">
+<link rel="canonical" href="https://safepaste.vercel.app/">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#3448d0">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SafePaste">
+<meta property="og:title" content="Redact it before you paste it into an AI">
+<meta property="og:description" content="Names, card numbers, health IDs and API keys — stripped in your browser, put back when the answer comes home. Nothing is ever uploaded.">
+<meta property="og:image" content="https://safepaste.vercel.app/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://safepaste.vercel.app/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Redact it before you paste it into an AI">
+<meta name="twitter:description" content="Names, card numbers, health IDs and API keys — stripped in your browser, put back when the answer comes home.">
+<meta name="twitter:image" content="https://safepaste.vercel.app/assets/img/og.png">
+
+<link rel="stylesheet" href="/assets/css/main.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SafePaste",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Any browser",
+  "description": "Removes personal and confidential data from text before it is pasted into an AI assistant, and restores the real values in the reply. Runs entirely client-side.",
+  "offers": [
+    { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD" },
+    { "@type": "Offer", "name": "Personal", "price": "39", "priceCurrency": "USD" },
+    { "@type": "Offer", "name": "Team", "price": "149", "priceCurrency": "USD" },
+    { "@type": "Offer", "name": "Business", "price": "499", "priceCurrency": "USD" }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="/">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true" fill="none">
+        <path d="M16 2.6 4.9 7.2v8.5c0 6.9 4.6 12.9 11.1 14.8 6.5-1.9 11.1-7.9 11.1-14.8V7.2L16 2.6Z" fill="currentColor" opacity=".12"/>
+        <path d="M16 2.6 4.9 7.2v8.5c0 6.9 4.6 12.9 11.1 14.8 6.5-1.9 11.1-7.9 11.1-14.8V7.2L16 2.6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M11.4 16.2h9.2M11.4 12.1h9.2M11.4 20.3h5.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      SafePaste
+    </a>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#what">What it finds</a>
+      <a href="#pricing">Pricing</a>
+      <a href="/app" class="btn btn--sm btn--primary">Open the tool</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ------------------------------------------------------------------ hero -->
+<section class="wrap hero">
+  <span class="hero__eyebrow">Runs in your browser · nothing is uploaded</span>
+  <h1>Redact it before you paste it into an AI.</h1>
+  <p class="hero__sub">
+    Your team wants to use ChatGPT and Claude. Your policy says customer data
+    stays inside. SafePaste strips the names, card numbers, health IDs and API
+    keys out of any text, gives you something safe to paste, and puts the real
+    values back into the answer that comes home.
+  </p>
+  <div class="hero__cta">
+    <a class="btn btn--lg btn--primary" href="/app">Try it free — no sign-up</a>
+    <a class="btn btn--lg" href="#pricing">See pricing</a>
+  </div>
+  <p class="hero__note">Free for text up to 5,000 characters. $39 once for everything else.</p>
+
+  <div class="demo">
+    <div class="demo__bar">
+      <span class="demo__dot"></span><span class="demo__dot"></span><span class="demo__dot"></span>
+      <span class="demo__label">A support ticket, before and after</span>
+    </div>
+    <div class="demo__cols">
+      <div class="demo__col"><div class="demo__caption">What you have</div>Our client Michael Okonkwo (DOB 14/03/1979,
+NHS No 943 476 5919) called about his card
+5555 5555 5555 4444, exp 04/27.
+
+Reach him on +44 20 7946 0958 or at
+m.okonkwo@example.com.
+
+Route the payment to
+GB82 WEST 1234 5698 7654 32 instead.
+
+The portal token is
+sk_live_9Kf2mQwT4bXpLz70.</div>
+      <div class="demo__col"><div class="demo__caption">What you paste</div>Our client [PERSON_1] (DOB [DATE_OF_BIRTH_1],
+NHS No [NHS_1]) called about his card
+[CREDIT_CARD_1], exp [CARD_EXPIRY_1].
+
+Reach him on [PHONE_1] or at
+[EMAIL_1].
+
+Route the payment to
+[IBAN_1] instead.
+
+The portal token is
+[API_KEY_1].</div>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------- the problem -->
+<section class="band band--alt" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The problem isn't the AI. It's the paste.</h2>
+      <p>
+        Every "do not put customer data into ChatGPT" policy runs into the same
+        wall: the work people need help with <em>is</em> the customer data. So
+        they either stop using the tool, or they paste anyway and hope.
+      </p>
+    </div>
+    <div class="grid-3">
+      <div class="feature">
+        <h3>Redaction that survives the round trip</h3>
+        <p>
+          Deleting names gives the model a document it cannot reason about.
+          SafePaste swaps each value for a stable token, so the model still
+          knows that [PERSON_1] emailed [PERSON_2] on [DATE_OF_BIRTH_1].
+        </p>
+      </div>
+      <div class="feature">
+        <h3>The answer comes back whole</h3>
+        <p>
+          Paste the model's reply back in and every token becomes the real
+          value again — byte for byte. The draft email it wrote has your
+          customer's actual name in it, and you never sent that name anywhere.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>Nothing to trust us about</h3>
+        <p>
+          There is no server to send your text to. The page's Content Security
+          Policy blocks every outbound connection except its own origin, and
+          you can check that in your browser's network tab in ten seconds.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------------------------------------------------- how it works -->
+<section class="band" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Three steps, about fifteen seconds</h2>
+      <p>No account, no install, no upload. Open a tab and work.</p>
+    </div>
+    <div class="grid-3">
+      <div class="feature">
+        <div class="feature__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="8" y="3" width="8" height="4" rx="1"/><path d="M16 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/>
+          </svg>
+        </div>
+        <h3>1. Paste your text</h3>
+        <p>An email, a ticket, a spreadsheet export, a log file, a contract clause. It stays in the tab.</p>
+      </div>
+      <div class="feature">
+        <div class="feature__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3 4 6.5v5.8C4 17.4 7.4 21.8 12 23c4.6-1.2 8-5.6 8-10.7V6.5L12 3Z"/><path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <h3>2. Copy the safe version</h3>
+        <p>Every identifier is replaced. The findings panel shows exactly what was caught, and what it was replaced with.</p>
+      </div>
+      <div class="feature">
+        <div class="feature__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 2.6-6.4"/><path d="M3 4v5h5"/>
+          </svg>
+        </div>
+        <h3>3. Bring the answer home</h3>
+        <p>Paste the model's reply back and the real values return exactly where they belong.</p>
+      </div>
+    </div>
+    <p class="center"><a class="btn btn--lg btn--primary" href="/app">Open the tool</a></p>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------ what it finds -->
+<section class="band band--alt" id="what">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>41 detectors, and almost no false alarms</h2>
+      <p>
+        Anything with a checksum is verified, not guessed. A sixteen-digit
+        number is only a card if it passes Luhn; nine digits are only a Social
+        Security number if they obey the SSA's allocation rules. That is the
+        difference between a tool you keep using and one you switch off after
+        it mangles your third document.
+      </p>
+    </div>
+    <div class="grid-3">
+      <div class="feature">
+        <h3>People and contact</h3>
+        <p>Names (linked across full and partial mentions), email addresses, phone numbers in every common convention, street addresses, postcodes, dates of birth, social handles, GPS coordinates.</p>
+      </div>
+      <div class="feature">
+        <h3>Money</h3>
+        <p>Payment cards (Luhn), IBANs (mod-97), ABA routing numbers, SWIFT/BIC, account numbers, card expiry and security codes, crypto wallets.</p>
+      </div>
+      <div class="feature">
+        <h3>Government and health</h3>
+        <p>US SSN and NPI, UK National Insurance and NHS numbers, Canadian SIN, Australian TFN and ABN, passports, driving licences, tax IDs, medical record numbers.</p>
+      </div>
+      <div class="feature">
+        <h3>Credentials</h3>
+        <p>AWS, GitHub, Slack, Stripe, OpenAI, Anthropic, Google, GitLab and a dozen more key formats, JWTs, private key blocks, bearer tokens, database connection strings, URLs carrying a secret.</p>
+      </div>
+      <div class="feature">
+        <h3>Infrastructure</h3>
+        <p>IPv4 and IPv6 addresses, MAC addresses, internal hostnames, vehicle VINs, policy and claim and employee reference numbers.</p>
+      </div>
+      <div class="feature">
+        <h3>Whatever else matters to you</h3>
+        <p>Add your own rules for client names, project codenames and internal systems, and an allowlist for the things that must never be touched.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------------ who -->
+<section class="band" id="who">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Built for the people who can't just paste</h2>
+    </div>
+    <div class="grid-3">
+      <div class="feature">
+        <h3>Law firms</h3>
+        <p>Client confidentiality does not have a "but I wanted a summary" exception. Redact the matter, get the summary, restore the names.</p>
+      </div>
+      <div class="feature">
+        <h3>Healthcare admin</h3>
+        <p>Patient names, NHS numbers, MRNs and dates of birth out; a rewritten letter back in. Nothing crosses a network boundary.</p>
+      </div>
+      <div class="feature">
+        <h3>Finance and insurance</h3>
+        <p>Card numbers, IBANs, policy references and claim IDs handled with checksum-verified precision rather than a hopeful regex.</p>
+      </div>
+      <div class="feature">
+        <h3>HR and recruitment</h3>
+        <p>Candidate CVs and grievance notes are the most sensitive documents in the building. Strip the identity, keep the substance.</p>
+      </div>
+      <div class="feature">
+        <h3>Engineering</h3>
+        <p>Paste the stack trace without pasting the production API key that is three lines below it.</p>
+      </div>
+      <div class="feature">
+        <h3>Consultants and agencies</h3>
+        <p>Your NDA covers the client's name and their customers' names. One custom rule handles the first; forty-one detectors handle the second.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- -------------------------------------------------------------- pricing -->
+<section class="band band--alt" id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Buy it once. Keep it forever.</h2>
+      <p>No subscription, no seats to reconcile every month, no account to create. A licence key you paste in, and that is the end of the transaction.</p>
+    </div>
+    <div class="pricing">
+      <div class="plan">
+        <div class="plan__name">Free</div>
+        <div class="plan__price">$0</div>
+        <div class="plan__blurb">Everything you need to decide whether this is for you.</div>
+        <ul>
+          <li>Text up to 5,000 characters</li>
+          <li>All 41 detectors</li>
+          <li>Token redaction and full restore</li>
+          <li>Findings panel and exposure score</li>
+          <li>No account, no email address</li>
+        </ul>
+        <a class="btn btn--block" href="/app">Start now</a>
+      </div>
+
+      <div class="plan plan--feature">
+        <span class="plan__badge">Most people buy this</span>
+        <div class="plan__name">Personal</div>
+        <div class="plan__price">$39<small> once</small></div>
+        <div class="plan__blurb">For one person. Yours forever, including updates.</div>
+        <ul>
+          <li>Unlimited document size</li>
+          <li>Open and save files</li>
+          <li>Realistic-name mode for natural model output</li>
+          <li>Custom rules and allowlists</li>
+          <li>Save and reload the mapping vault</li>
+          <li>Works fully offline once loaded</li>
+        </ul>
+        <a class="btn btn--block btn--primary" href="/app" data-buy="personal">Buy Personal</a>
+      </div>
+
+      <div class="plan">
+        <div class="plan__name">Team</div>
+        <div class="plan__price">$149<small> once</small></div>
+        <div class="plan__blurb">Up to 10 people on one key.</div>
+        <ul>
+          <li>Everything in Personal</li>
+          <li>10 seats on one licence</li>
+          <li>Shared rule profiles</li>
+          <li>Consistent tokens across a batch of files</li>
+          <li>Priority email support</li>
+        </ul>
+        <a class="btn btn--block" href="/app" data-buy="team">Buy Team</a>
+      </div>
+
+      <div class="plan">
+        <div class="plan__name">Business</div>
+        <div class="plan__price">$499<small> once</small></div>
+        <div class="plan__blurb">Unlimited seats across one organisation.</div>
+        <ul>
+          <li>Everything in Team</li>
+          <li>Unlimited seats</li>
+          <li>Self-host on your own domain</li>
+          <li>Written confirmation for your DPIA that no data leaves the browser</li>
+          <li>Named contact for security review questions</li>
+        </ul>
+        <a class="btn btn--block" href="/app" data-buy="business">Buy Business</a>
+      </div>
+    </div>
+    <p class="center muted" id="buy-note"></p>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------------ faq -->
+<section class="band" id="faq">
+  <div class="wrap">
+    <div class="section-head"><h2>Questions people actually ask</h2></div>
+    <div class="faq">
+      <details open>
+        <summary>Is my text really never uploaded?</summary>
+        <p>
+          Yes, and you do not have to take our word for it. Open your browser's
+          developer tools, go to the Network tab, and use the tool. You will see
+          the page load and then nothing. The page is served with a Content
+          Security Policy of <code>connect-src 'self'</code>, which means the
+          browser itself refuses to let it contact any other host — that is
+          enforced by your browser, not by our good intentions.
+        </p>
+      </details>
+      <details>
+        <summary>What happens if it misses something?</summary>
+        <p>
+          The Review tab shows you the original with every match highlighted, so
+          you can see what was caught before you copy anything. Matches that
+          relied on context rather than a checksum are flagged for a second look.
+          No redaction tool is a substitute for reading the document, and this
+          one is built to make that read fast rather than to pretend it is
+          unnecessary.
+        </p>
+      </details>
+      <details>
+        <summary>Won't redacting break the model's answer?</summary>
+        <p>
+          Tokens keep the structure, so the model still knows two people are
+          involved and which is which. If you would rather the text read
+          naturally, Realistic-name mode substitutes plausible fictional names
+          instead — drawn only from reserved ranges, so a pseudonymised document
+          can never accidentally name a real person's real account.
+        </p>
+      </details>
+      <details>
+        <summary>Does this make us GDPR or HIPAA compliant?</summary>
+        <p>
+          No tool can do that on its own, and anyone claiming otherwise is
+          selling you something. What SafePaste does is remove the identifiers
+          from a document before you share it, and keep the mapping local. That
+          is a control you can point at in a DPIA, not a certification. Talk to
+          whoever owns compliance where you work.
+        </p>
+      </details>
+      <details>
+        <summary>Is there a subscription?</summary>
+        <p>
+          No. One payment, one licence key, yours permanently, updates included.
+          If a future version is a major rewrite we may charge for that
+          separately, but the version you bought keeps working forever — it is a
+          static page that runs offline.
+        </p>
+      </details>
+      <details>
+        <summary>What if it doesn't work for me?</summary>
+        <p>
+          Email within 30 days and you get your money back, no argument and no
+          form to fill in. The free tier exists so you can find that out before
+          you pay, but the guarantee is there anyway.
+        </p>
+      </details>
+      <details>
+        <summary>Can we run it on our own infrastructure?</summary>
+        <p>
+          Yes — that is what the Business licence covers. It is a static site
+          with no backend, so hosting it internally is a matter of copying a
+          directory onto a web server. Air-gapped networks included.
+        </p>
+      </details>
+      <details>
+        <summary>Which languages does it handle?</summary>
+        <p>
+          Structured identifiers — cards, IBANs, IPs, keys, national ID numbers —
+          are language-independent and work everywhere. Person and address
+          detection is tuned for English-language documents today. Text in any
+          script passes through untouched and round-trips exactly.
+        </p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band band--alt">
+  <div class="wrap">
+    <h2>Stop choosing between the policy and the work.</h2>
+    <p class="muted">Free to try, right now, without an account.</p>
+    <p><a class="btn btn--lg btn--primary" href="/app">Open SafePaste</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> SafePaste</span>
+    <nav>
+      <a href="/app">The tool</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/security">Security</a>
+      <a href="/refunds">Refunds</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<script type="module" src="/assets/js/site.js"></script>
+</body>
+</html>

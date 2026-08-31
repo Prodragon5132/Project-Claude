@@ -1,0 +1,31 @@
+{
+  "name": "SafePaste — redact before you paste",
+  "short_name": "SafePaste",
+  "description": "Strip personal data out of anything before you paste it into an AI. Runs entirely in your browser.",
+  "start_url": "/app",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fbfbfd",
+  "theme_color": "#3448d0",
+  "categories": ["productivity", "security", "utilities"],
+  "icons": [
+    {
+      "src": "/assets/img/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

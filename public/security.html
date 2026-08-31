@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security — SafePaste</title>
+<meta name="description" content="How SafePaste is built, what it can and cannot reach, and what to check before you trust it.">
+<link rel="canonical" href="/security">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<meta name="theme-color" content="#3448d0">
+<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="/">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true" fill="none">
+        <path d="M16 2.6 4.9 7.2v8.5c0 6.9 4.6 12.9 11.1 14.8 6.5-1.9 11.1-7.9 11.1-14.8V7.2L16 2.6Z" fill="currentColor" opacity=".12"/>
+        <path d="M16 2.6 4.9 7.2v8.5c0 6.9 4.6 12.9 11.1 14.8 6.5-1.9 11.1-7.9 11.1-14.8V7.2L16 2.6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M11.4 16.2h9.2M11.4 12.1h9.2M11.4 20.3h5.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      SafePaste
+    </a>
+    <nav>
+      <a href="/app">The tool</a>
+      <a href="/#pricing">Pricing</a>
+    </nav>
+  </div>
+</header>
+
+<main class="prose">
+<h1>Security</h1>
+<p class="updated">Last updated 31 August 2026</p>
+
+<p>
+  This page is written for whoever has to approve SafePaste before your team can
+  use it. It describes the architecture honestly, including its limits.
+</p>
+
+<h2>Architecture</h2>
+<p>
+  SafePaste is a static web page. There is no application server, no database,
+  and no processing pipeline. Detection, redaction and restoration are plain
+  JavaScript executing in the visitor's browser. The only server-side code in
+  the whole product is two endpoints: one that returns public configuration, and
+  one that asks the payment provider whether a licence key is valid.
+</p>
+
+<h2>Data flow</h2>
+<table>
+  <tr><th>Data</th><th>Where it goes</th></tr>
+  <tr><td>The document you paste</td><td>Nowhere. It stays in the tab's memory.</td></tr>
+  <tr><td>Detected values and the mapping vault</td><td>Nowhere. Tab memory only, discarded on close.</td></tr>
+  <tr><td>Settings, theme, licence key</td><td><code>localStorage</code> on your own device.</td></tr>
+  <tr><td>Licence key, at activation only</td><td>Our <code>/api/license</code> endpoint, then the payment provider.</td></tr>
+</table>
+
+<h2>Controls you can verify yourself</h2>
+<ul>
+  <li>
+    <strong>Content Security Policy.</strong> Every page is served with
+    <code>connect-src 'self'</code>, <code>script-src 'self'</code>,
+    <code>object-src 'none'</code>, <code>frame-ancestors 'none'</code> and
+    <code>base-uri 'none'</code>. The browser blocks any attempt by the page to
+    contact another host. Check the response headers.
+  </li>
+  <li>
+    <strong>No third-party code.</strong> There are no dependencies, no CDN
+    scripts, no fonts loaded from another origin, no analytics and no tag
+    manager. Every byte of JavaScript is served from this domain. Check the
+    Network tab.
+  </li>
+  <li>
+    <strong>No cookies.</strong> The site sets none.
+  </li>
+  <li>
+    <strong>Offline operation.</strong> Load the page once, disconnect the
+    network, and keep working. A tool that functions with the network cable out
+    is a tool that is not sending anything anywhere.
+  </li>
+</ul>
+
+<h2>Detection accuracy</h2>
+<p>
+  Identifiers with a checksum are validated rather than pattern-matched: payment
+  cards against Luhn, IBANs against ISO 7064 mod-97, NHS numbers against mod-11,
+  routing numbers against the ABA weighting, VINs against the ISO 3779 check
+  digit, and so on. This is what keeps false positives low enough that people
+  keep the tool switched on.
+</p>
+<p>
+  Person names, street addresses and unlabelled identifiers have no checksum.
+  They are found using gazetteers and context, and each match carries a
+  confidence value. Anything below certainty is flagged for review in the
+  interface. <strong>SafePaste will not catch everything.</strong> A name absent
+  from the gazetteer and unaccompanied by any supporting context can be missed,
+  as can an identifier in a format the detectors do not know. Read the Review
+  tab before you copy.
+</p>
+
+<h2>Threat model</h2>
+<p>SafePaste protects against:</p>
+<ul>
+  <li>Sensitive data reaching a third-party AI service through copy and paste.</li>
+  <li>That data being retained, logged or used for training by that service.</li>
+  <li>Accidental disclosure of credentials pasted alongside a stack trace or log.</li>
+</ul>
+<p>SafePaste does not protect against:</p>
+<ul>
+  <li>A compromised browser, extension or operating system on the machine running it.</li>
+  <li>A user who copies the original text instead of the redacted text.</li>
+  <li>Re-identification from context that contains no explicit identifier — "the CFO who resigned in March" names a person without naming them.</li>
+  <li>Anything at all once you have pasted the redacted text somewhere; what that service does with it is between you and them.</li>
+</ul>
+
+<h2>Reporting a problem</h2>
+<p>
+  If you find a way to make SafePaste leak data, mis-restore a document, or
+  transmit anything it should not, write to <span data-contact-email>the address on your receipt</span> with steps to reproduce.
+  We will confirm receipt, fix it, and credit you if you would like to be
+  credited. Please do not test against anyone else's data.
+</p>
+
+<h2>For your review paperwork</h2>
+<p>
+  Business licence holders can request written confirmation of the data-flow
+  statements on this page, on letterhead, for attaching to a DPIA or vendor
+  assessment.
+</p>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> SafePaste</span>
+    <nav>
+      <a href="/app">The tool</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/security">Security</a>
+      <a href="/refunds">Refunds</a>
+    </nav>
+  </div>
+</footer>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<script type="module" src="/assets/js/site.js"></script>
+</body>
+</html>
