@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to remove personal data before using an AI tool — SafePaste</title>
+<meta name="description" content="The four approaches to redacting a document before you paste it into an assistant, what each one costs you, and why the answer usually has to come back.">
+<link rel="canonical" href="https://safepaste-alpha.vercel.app/guides/redact-pii-before-ai">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<meta name="theme-color" content="#3448d0">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="SafePaste">
+<meta property="og:title" content="How to remove personal data before using an AI tool">
+<meta property="og:description" content="The four approaches to redacting a document before you paste it into an assistant, what each one costs you, and why the answer usually has to come back.">
+<meta property="og:url" content="https://safepaste-alpha.vercel.app/guides/redact-pii-before-ai">
+<meta property="og:image" content="https://safepaste-alpha.vercel.app/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to remove personal data before using an AI tool">
+<meta name="twitter:description" content="The four approaches to redacting a document before you paste it into an assistant, what each one costs you, and why the answer usually has to come back.">
+<meta name="twitter:image" content="https://safepaste-alpha.vercel.app/assets/img/og.png">
+<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="/">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true" fill="none">
+        <path d="M16 2.6 4.9 7.2v8.5c0 6.9 4.6 12.9 11.1 14.8 6.5-1.9 11.1-7.9 11.1-14.8V7.2L16 2.6Z" fill="currentColor" opacity=".12"/>
+        <path d="M16 2.6 4.9 7.2v8.5c0 6.9 4.6 12.9 11.1 14.8 6.5-1.9 11.1-7.9 11.1-14.8V7.2L16 2.6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M11.4 16.2h9.2M11.4 12.1h9.2M11.4 20.3h5.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      SafePaste
+    </a>
+    <nav>
+      <a href="/#pricing">Pricing</a>
+      <a href="/app" class="btn btn--sm btn--primary">Open the tool</a>
+    </nav>
+  </div>
+</header>
+
+<main class="prose">
+<h1>How to remove personal data before using an AI tool</h1>
+<p class="updated">Last updated 31 August 2026</p>
+
+<p>
+  There are four ways people do this. Three of them are worse than they look.
+</p>
+
+<h2>1. Delete it by hand</h2>
+
+<p>
+  Select the name, delete it, type "the customer". Repeat for every date of
+  birth, account number and phone number in a forty-page bundle.
+</p>
+
+<p>
+  This works, in the sense that a bicycle works for crossing a continent. The
+  real cost is not the time, it is what it does to the document. Once every
+  person is "the customer", a document involving three people becomes unreadable
+  and the model's answer becomes useless — it cannot tell you who owes what to
+  whom if you have deleted the distinction. And you will miss things. Everyone
+  misses things: the reference number in the footer, the email address in a
+  quoted reply, the initials in a filename.
+</p>
+
+<h2>2. Find and replace</h2>
+
+<p>
+  Better, because it is consistent: replace "Michael Okonkwo" with "Person A"
+  everywhere at once, and the document keeps its structure.
+</p>
+
+<p>
+  The problem is that you can only replace what you already know is there. Find
+  and replace cannot tell you that page nineteen contains a card number, or that
+  the log excerpt someone pasted in has a bearer token in it. It handles the
+  data you remembered, which is not the data that gets you into trouble.
+</p>
+
+<h2>3. Ask an AI to redact it first</h2>
+
+<p>
+  Superficially attractive, and completely circular. To have a model redact your
+  document, you have to send the model your document. The unredacted one. You
+  have performed the disclosure you were trying to avoid, and added a second
+  one.
+</p>
+
+<p>
+  This is only sound if the model runs locally on your own hardware. If you have
+  the machine and the patience to run a capable local model, it is a legitimate
+  approach and will handle unusual name formats better than any rule-based
+  system. For most people, at most organisations, it is not a realistic answer
+  to "I need to summarise this ticket before lunch".
+</p>
+
+<h2>4. Reversible local redaction</h2>
+
+<p>
+  Replace each identifier with a stable placeholder, keep the mapping on your own
+  machine, and reverse it when the answer comes back.
+</p>
+
+<p>
+  This is the approach that survives contact with real work, for three reasons.
+</p>
+
+<h3>The document stays coherent</h3>
+<p>
+  <code>[PERSON_1] emailed [PERSON_2] about invoice [RECORD_ID_1]</code> is a
+  sentence a model can reason about. It knows there are two people, which one
+  did the emailing, and that they are different. Deleting the names destroys
+  exactly the structure the model needs.
+</p>
+
+<h3>The answer comes back whole</h3>
+<p>
+  This is the part people underestimate until they try it the other way. If you
+  redact irreversibly, the model gives you a draft reply addressed to
+  <code>[PERSON_1]</code>, and now you are hand-editing it back — which is the
+  manual work you were avoiding, at the end instead of the beginning. Reversible
+  redaction means the draft comes back addressed to the actual person, and the
+  round trip is invisible.
+</p>
+
+<h3>You can check its work</h3>
+<p>
+  A good tool shows you what it found before you copy anything, and marks the
+  matches it is not certain about. That matters, because the alternative — a
+  black box that promises it caught everything — is one you cannot responsibly
+  rely on.
+</p>
+
+<h2>What a redaction pass should actually cover</h2>
+
+<p>
+  Names and email addresses are the obvious ones and the least likely to be
+  missed. The categories that get skipped are the ones that cause the incidents:
+</p>
+
+<ul>
+  <li><strong>National identifiers</strong> — Social Security numbers, National
+      Insurance numbers, NHS numbers, SINs, tax file numbers.</li>
+  <li><strong>Financial</strong> — card numbers, IBANs, routing and account
+      numbers, expiry dates and security codes.</li>
+  <li><strong>Health</strong> — medical record numbers, NHS numbers, provider
+      identifiers.</li>
+  <li><strong>Reference numbers</strong> — policy, claim, case, employee and
+      customer IDs. These are identifiers even when they look like noise.</li>
+  <li><strong>Credentials</strong> — API keys, tokens, connection strings,
+      private keys. Nobody pastes these on purpose; they arrive attached to logs
+      and stack traces.</li>
+  <li><strong>Infrastructure</strong> — internal hostnames and IP addresses,
+      which describe your network to anyone who reads them.</li>
+  <li><strong>Dates of birth</strong>, which combined with a postcode identify
+      most people uniquely.</li>
+</ul>
+
+<h2>The precision problem</h2>
+
+<p>
+  It is easy to build something that redacts everything. It is much harder to
+  build something people keep using, and the difference is false positives.
+</p>
+
+<p>
+  A redactor that turns "Mark the invoice as Paid" into "[PERSON_1] the invoice
+  as [PERSON_2]" gets switched off within a week, and then you have no redaction
+  at all. Precision is not a nicety here — it is what determines whether the
+  control is still in place in a month.
+</p>
+
+<p>
+  The way to get it is to verify rather than guess wherever the data allows. A
+  sixteen-digit number is only a payment card if it passes the Luhn check. Nine
+  digits are only a Social Security number if they obey the allocation rules the
+  SSA has always followed. An IBAN either passes its mod-97 checksum or it is
+  not an IBAN. Names have no checksum, so they need a different treatment:
+  gazetteers, supporting context, and an honest confidence score on every match
+  so the uncertain ones can be reviewed rather than silently trusted.
+</p>
+
+<h2>What none of this fixes</h2>
+
+<p>
+  Re-identification from context. "The CFO who resigned in March" contains no
+  identifier and names a person to anyone who knows the company. No redaction
+  tool will catch that, and you should not choose one that claims it will.
+  Read what you are about to send.
+</p>
+
+
+<div class="card cta-card">
+  <h2 class="mt-0">Try it on your own document</h2>
+  <p>
+    SafePaste strips the identifiers out of any text in your browser, hands you a
+    version that is safe to paste, and puts the real values back into the answer.
+    Nothing is uploaded — the page cannot reach any server but its own.
+  </p>
+  <p class="mb-0"><a class="btn btn--primary" href="/app">Open SafePaste — free, no sign-up</a></p>
+</div>
+
+
+<h2>Related</h2>
+<ul>
+  <li><a href="/guides/chatgpt-customer-data">Can you put customer data into ChatGPT?</a></li>
+  <li><a href="/guides/what-counts-as-pii">What actually counts as personal data</a></li>
+</ul>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> SafePaste</span>
+    <nav>
+      <a href="/app">The tool</a>
+      <a href="/guides">Guides</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/security">Security</a>
+      <a href="/refunds">Refunds</a>
+    </nav>
+  </div>
+</footer>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<script type="module" src="/assets/js/site.js"></script>
+</body>
+</html>

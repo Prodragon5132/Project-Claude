@@ -46,7 +46,8 @@ const page = await context.newPage();
 /* ------------------------------------------------------------ every page */
 
 console.log('\nPages load cleanly');
-for (const path of ['/', '/app', '/privacy', '/terms', '/security', '/refunds']) {
+for (const path of ['/', '/app', '/privacy', '/terms', '/security', '/refunds', '/guides',
+  '/guides/chatgpt-customer-data', '/guides/redact-pii-before-ai', '/guides/what-counts-as-pii']) {
   const res = await page.goto(BASE + path, { waitUntil: 'networkidle' });
   check(`${path} responds 200`, res && res.status() === 200, res && String(res.status()));
   const title = await page.title();

@@ -345,6 +345,9 @@ mark.hit[data-risk="medium"], mark.hit[data-risk="low"] { background: var(--surf
 .finding[data-risk="high"] { border-left: 3px solid var(--warn); }
 .finding[data-risk="medium"], .finding[data-risk="low"] { border-left: 3px solid var(--border-strong); }
 
+.cta-card { margin: 2.6em 0; background: var(--surface-2); }
+.cta-card h2 { font-size: 1.25rem; }
+
 .empty { color: var(--muted); font-size: .87rem; text-align: center; padding: 22px 8px; }
 
 /* ---------------------------------------------------------------- restore */

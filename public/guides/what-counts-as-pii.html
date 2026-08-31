@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What actually counts as personal data — SafePaste</title>
+<meta name="description" content="A working checklist of identifiers, including the ones people forget: reference numbers, device identifiers, dates of birth, and the combinations that identify someone without naming them.">
+<link rel="canonical" href="https://safepaste-alpha.vercel.app/guides/what-counts-as-pii">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<meta name="theme-color" content="#3448d0">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="SafePaste">
+<meta property="og:title" content="What actually counts as personal data">
+<meta property="og:description" content="A working checklist of identifiers, including the ones people forget: reference numbers, device identifiers, dates of birth, and the combinations that identify someone without naming them.">
+<meta property="og:url" content="https://safepaste-alpha.vercel.app/guides/what-counts-as-pii">
+<meta property="og:image" content="https://safepaste-alpha.vercel.app/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What actually counts as personal data">
+<meta name="twitter:description" content="A working checklist of identifiers, including the ones people forget: reference numbers, device identifiers, dates of birth, and the combinations that identify someone without naming them.">
+<meta name="twitter:image" content="https://safepaste-alpha.vercel.app/assets/img/og.png">
+<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="/">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true" fill="none">
+        <path d="M16 2.6 4.9 7.2v8.5c0 6.9 4.6 12.9 11.1 14.8 6.5-1.9 11.1-7.9 11.1-14.8V7.2L16 2.6Z" fill="currentColor" opacity=".12"/>
+        <path d="M16 2.6 4.9 7.2v8.5c0 6.9 4.6 12.9 11.1 14.8 6.5-1.9 11.1-7.9 11.1-14.8V7.2L16 2.6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M11.4 16.2h9.2M11.4 12.1h9.2M11.4 20.3h5.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      SafePaste
+    </a>
+    <nav>
+      <a href="/#pricing">Pricing</a>
+      <a href="/app" class="btn btn--sm btn--primary">Open the tool</a>
+    </nav>
+  </div>
+</header>
+
+<main class="prose">
+<h1>What actually counts as personal data</h1>
+<p class="updated">Last updated 31 August 2026</p>
+
+<p>
+  Most people's mental model is "name, address, phone number". That list is not
+  wrong, it is about a fifth of the answer, and the missing four fifths are
+  where the incidents come from.
+</p>
+
+<h2>The definition, briefly</h2>
+
+<p>
+  Under GDPR, personal data is any information relating to an identified or
+  identifiable living person. The word doing the work is <em>identifiable</em>:
+  data that does not name someone still counts if it can single them out, on its
+  own or combined with other information reasonably available.
+</p>
+<p>
+  US law is more fragmented. HIPAA's Safe Harbor method lists eighteen specific
+  identifier types that must be removed before health data is considered
+  de-identified, including all geographic subdivisions smaller than a state, all
+  dates more precise than a year, and any other unique identifying number or
+  code. State laws such as the CCPA use a broader definition closer to GDPR's.
+</p>
+<p>
+  Whichever regime applies, the practical consequence is the same: treat "can
+  this single someone out?" as the test, not "does this contain a name?"
+</p>
+
+<h2>Direct identifiers</h2>
+
+<p>These name a person on their own.</p>
+
+<ul>
+  <li>Full names, and partial names in context — a first name in a two-person
+      thread identifies someone.</li>
+  <li>Email addresses, including the ones that look anonymous.</li>
+  <li>Phone numbers, mobile and landline.</li>
+  <li>Postal addresses, and postcodes on their own in sparse areas.</li>
+  <li>National identifiers: Social Security number, National Insurance number,
+      NHS number, Social Insurance Number, tax file number, passport number,
+      driving licence number.</li>
+  <li>Photographs and voice recordings.</li>
+</ul>
+
+<h2>The ones people forget</h2>
+
+<p>This is the list worth actually reading.</p>
+
+<h3>Reference numbers</h3>
+<p>
+  Policy numbers, claim numbers, case numbers, customer IDs, employee numbers,
+  medical record numbers, order numbers. They look like noise and they are
+  perfect identifiers: unique, stable, and directly linkable to a person by
+  anyone with access to the corresponding system. HIPAA's Safe Harbor list
+  includes "any other unique identifying number, characteristic, or code" for
+  exactly this reason.
+</p>
+
+<h3>Dates of birth</h3>
+<p>
+  A date of birth plus a postcode identifies a large fraction of any population
+  uniquely. It is one of the most identifying fields in any record and one of
+  the most commonly left in.
+</p>
+
+<h3>Device and network identifiers</h3>
+<p>
+  IP addresses, MAC addresses, device IDs, advertising identifiers, cookie IDs.
+  European regulators have consistently treated IP addresses as personal data
+  where the holder can link them to a person. In a log file they are also a
+  description of your infrastructure.
+</p>
+
+<h3>Financial identifiers</h3>
+<p>
+  Card numbers, bank account and routing numbers, IBANs. Card data carries its
+  own separate regime — PCI DSS — with obligations that apply regardless of
+  whether the cardholder is identifiable.
+</p>
+
+<h3>Employment and education records</h3>
+<p>
+  Salary, performance reviews, disciplinary records, grievance notes, student
+  records. Some of the most sensitive documents in any organisation, and rarely
+  covered by an AI policy that was written with customer data in mind.
+</p>
+
+<h3>Special category data</h3>
+<p>
+  GDPR gives extra protection to data revealing racial or ethnic origin,
+  political opinions, religious beliefs, trade union membership, genetic and
+  biometric data, health, sex life and sexual orientation. These usually cannot
+  be processed at all without a specific lawful basis, which makes casually
+  pasting them into an assistant a considerably worse problem than pasting a
+  name.
+</p>
+
+<h3>Free text</h3>
+<p>
+  The single most under-managed category. Case notes, support ticket bodies,
+  complaint descriptions and internal comments contain everything above, plus
+  the things nobody would have put in a structured field. Any redaction that
+  only handles structured columns and skips the notes has missed the point.
+</p>
+
+<h2>Data that identifies without naming</h2>
+
+<p>
+  This is where automated tools stop being sufficient and judgement takes over.
+</p>
+
+<ul>
+  <li>"The CFO who resigned in March."</li>
+  <li>"Our only customer in Luxembourg."</li>
+  <li>"The patient who came in after the crash on the A38 last Tuesday."</li>
+  <li>A combination of job title, employer and approximate age.</li>
+</ul>
+
+<p>
+  None of these contains an identifier. All of them identify a person to anyone
+  with the relevant context. No tool will catch them, and any tool claiming to
+  anonymise your documents completely is overselling. Read what you are about to
+  send — the tool's job is to make that read fast, not to make it unnecessary.
+</p>
+
+<h2>A working checklist</h2>
+
+<p>Before a document leaves your control, has it been checked for:</p>
+
+<ol>
+  <li>Names, including partial and possessive forms.</li>
+  <li>Email addresses, phone numbers, postal addresses, postcodes.</li>
+  <li>Dates of birth and any other precise dates tied to a person.</li>
+  <li>National identifiers.</li>
+  <li>Financial identifiers.</li>
+  <li>Health identifiers.</li>
+  <li>Reference numbers of every kind.</li>
+  <li>Credentials — keys, tokens, connection strings.</li>
+  <li>IP addresses and internal hostnames.</li>
+  <li>Free-text fields, read rather than skimmed.</li>
+  <li>Descriptions that identify someone without naming them.</li>
+</ol>
+
+<p>
+  The first ten can be automated, and should be — that is a large amount of
+  careful reading to do by hand, and people are bad at it precisely when they
+  are busiest. The eleventh is yours.
+</p>
+
+
+<div class="card cta-card">
+  <h2 class="mt-0">Try it on your own document</h2>
+  <p>
+    SafePaste strips the identifiers out of any text in your browser, hands you a
+    version that is safe to paste, and puts the real values back into the answer.
+    Nothing is uploaded — the page cannot reach any server but its own.
+  </p>
+  <p class="mb-0"><a class="btn btn--primary" href="/app">Open SafePaste — free, no sign-up</a></p>
+</div>
+
+
+<h2>Related</h2>
+<ul>
+  <li><a href="/guides/chatgpt-customer-data">Can you put customer data into ChatGPT?</a></li>
+  <li><a href="/guides/redact-pii-before-ai">How to remove personal data before using an AI tool</a></li>
+</ul>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> SafePaste</span>
+    <nav>
+      <a href="/app">The tool</a>
+      <a href="/guides">Guides</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/security">Security</a>
+      <a href="/refunds">Refunds</a>
+    </nav>
+  </div>
+</footer>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<script type="module" src="/assets/js/site.js"></script>
+</body>
+</html>

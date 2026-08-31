@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Can you put customer data into ChatGPT? — SafePaste</title>
+<meta name="description" content="A practical answer for people who have been told not to, and still have the work to do: what the risk actually is, what the enterprise plans change, and what to do instead.">
+<link rel="canonical" href="https://safepaste-alpha.vercel.app/guides/chatgpt-customer-data">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<meta name="theme-color" content="#3448d0">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="SafePaste">
+<meta property="og:title" content="Can you put customer data into ChatGPT?">
+<meta property="og:description" content="A practical answer for people who have been told not to, and still have the work to do: what the risk actually is, what the enterprise plans change, and what to do instead.">
+<meta property="og:url" content="https://safepaste-alpha.vercel.app/guides/chatgpt-customer-data">
+<meta property="og:image" content="https://safepaste-alpha.vercel.app/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Can you put customer data into ChatGPT?">
+<meta name="twitter:description" content="A practical answer for people who have been told not to, and still have the work to do: what the risk actually is, what the enterprise plans change, and what to do instead.">
+<meta name="twitter:image" content="https://safepaste-alpha.vercel.app/assets/img/og.png">
+<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="/">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true" fill="none">
+        <path d="M16 2.6 4.9 7.2v8.5c0 6.9 4.6 12.9 11.1 14.8 6.5-1.9 11.1-7.9 11.1-14.8V7.2L16 2.6Z" fill="currentColor" opacity=".12"/>
+        <path d="M16 2.6 4.9 7.2v8.5c0 6.9 4.6 12.9 11.1 14.8 6.5-1.9 11.1-7.9 11.1-14.8V7.2L16 2.6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M11.4 16.2h9.2M11.4 12.1h9.2M11.4 20.3h5.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      SafePaste
+    </a>
+    <nav>
+      <a href="/#pricing">Pricing</a>
+      <a href="/app" class="btn btn--sm btn--primary">Open the tool</a>
+    </nav>
+  </div>
+</header>
+
+<main class="prose">
+<h1>Can you put customer data into ChatGPT?</h1>
+<p class="updated">Last updated 31 August 2026</p>
+
+<p>
+  The short answer is: usually not, and the reason is rarely the one people
+  give. The longer answer is more useful, because "don't" on its own has never
+  stopped anyone with a deadline.
+</p>
+
+<h2>What the actual risk is</h2>
+
+<p>
+  Most people asked to justify the rule reach for "the AI will train on it".
+  That is the weakest version of the argument. On the consumer tiers of most
+  assistants your conversations may be used to improve the model unless you turn
+  that off, but the business and enterprise tiers generally commit not to train
+  on your inputs by default. If training were the only concern, the policy could
+  be solved with a subscription upgrade.
+</p>
+
+<p>The concerns that survive scrutiny are these.</p>
+
+<h3>You are disclosing to a processor you have not contracted with</h3>
+<p>
+  If you hold personal data about identifiable people, you are constrained in
+  who you may share it with. Under GDPR that means a written processor agreement
+  with defined purposes, security obligations and transfer mechanisms. Under
+  HIPAA it means a Business Associate Agreement. Pasting a customer's details
+  into a consumer account creates a disclosure to a party you have no such
+  agreement with. Whether the model trains on it is beside the point; the
+  disclosure has already happened.
+</p>
+
+<h3>Your own contracts probably forbid it</h3>
+<p>
+  Professional confidentiality obligations — solicitor to client, clinician to
+  patient — and ordinary commercial NDAs are usually broader than data
+  protection law. A typical NDA restricts disclosure to named categories of
+  people for named purposes. "An AI assistant I found useful" is not one of
+  them, and no amount of retention policy fixes that.
+</p>
+
+<h3>Retention is not the same as training</h3>
+<p>
+  Even where training is off, conversations are typically retained for some
+  period for abuse monitoring, and may be reviewable by staff for that purpose.
+  That is a normal and reasonable thing for a provider to do. It is also a copy
+  of your customer's data sitting somewhere you do not control.
+</p>
+
+<h3>Somebody will paste the wrong thing</h3>
+<p>
+  This is the risk that actually materialises. Not a considered decision to
+  share a record, but a support engineer pasting a stack trace that happens to
+  contain a production API key three lines further down, or a whole log file
+  with session tokens in it. Policy does not prevent this; process does.
+</p>
+
+<h2>What the enterprise tiers do and do not fix</h2>
+
+<p>
+  A business or enterprise agreement with a major provider generally gives you:
+  no training on your data by default, a data processing agreement, some control
+  over retention, and administrative visibility. That is a genuine and
+  meaningful improvement, and if your organisation has the budget it is the
+  right first step.
+</p>
+<p>What it does not give you:</p>
+<ul>
+  <li>Relief from a client NDA that predates it and does not contemplate it.</li>
+  <li>A defence when the disclosure was never authorised in the first place — a
+      processor agreement covers processing you have decided to do, not
+      processing an employee decided to do.</li>
+  <li>Protection against the accidental paste, which is the common case.</li>
+  <li>Anything at all for the staff working outside the sanctioned account,
+      which in most organisations is most of them.</li>
+</ul>
+<p>
+  Check the current terms of whichever provider you use before relying on any of
+  this. Retention windows and training defaults change, and they differ between
+  the consumer app, the business tiers and the API.
+</p>
+
+<h2>The approach that works</h2>
+
+<p>
+  The organisations that have settled this have stopped framing it as a choice
+  between the policy and the work. They separate the two questions:
+</p>
+
+<ol>
+  <li><strong>Does this task need the identity?</strong> Almost never.
+      Summarising a complaint, drafting a reply, classifying a ticket,
+      extracting the dates from a contract — none of these require knowing that
+      the person is called Michael Okonkwo rather than Person 1.</li>
+  <li><strong>Does the answer need the identity?</strong> Usually yes. The draft
+      reply has to be addressed to a real person.</li>
+</ol>
+
+<p>
+  Those two facts together describe the solution exactly: remove the identifiers
+  before the text leaves your machine, do the work, and put them back into the
+  answer. The model does the reasoning, and the identity never leaves.
+</p>
+
+<p>
+  Removing them properly means more than deleting names. It means dates of
+  birth, account numbers, national identifiers, addresses, phone numbers,
+  reference numbers, and the credentials that get pasted by accident. And it
+  means doing that locally: a redaction service that uploads your document to
+  redact it has moved the problem rather than solved it.
+</p>
+
+<h2>What to tell your compliance team</h2>
+
+<p>
+  A control they can accept looks like this: identifiers are stripped from the
+  document before it is shared, the mapping between placeholder and real value
+  never leaves the employee's browser, and the redaction can be reviewed by the
+  employee before anything is pasted. That is a specific, auditable control you
+  can write into a policy and point at in a data protection impact assessment.
+</p>
+<p>
+  It is not a compliance certification, and nobody should sell it to you as one.
+  Anyone claiming a tool makes you "GDPR compliant" is describing something that
+  does not exist. Compliance is a property of your whole process. This is one
+  control within it — but it is the control that turns an unenforceable rule
+  into a workable one.
+</p>
+
+
+<div class="card cta-card">
+  <h2 class="mt-0">Try it on your own document</h2>
+  <p>
+    SafePaste strips the identifiers out of any text in your browser, hands you a
+    version that is safe to paste, and puts the real values back into the answer.
+    Nothing is uploaded — the page cannot reach any server but its own.
+  </p>
+  <p class="mb-0"><a class="btn btn--primary" href="/app">Open SafePaste — free, no sign-up</a></p>
+</div>
+
+
+<h2>Related</h2>
+<ul>
+  <li><a href="/guides/redact-pii-before-ai">How to remove personal data before using an AI tool</a></li>
+  <li><a href="/guides/what-counts-as-pii">What actually counts as personal data</a></li>
+  <li><a href="/security">How SafePaste is built, and what it cannot do</a></li>
+</ul>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> SafePaste</span>
+    <nav>
+      <a href="/app">The tool</a>
+      <a href="/guides">Guides</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/security">Security</a>
+      <a href="/refunds">Refunds</a>
+    </nav>
+  </div>
+</footer>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<script type="module" src="/assets/js/site.js"></script>
+</body>
+</html>
