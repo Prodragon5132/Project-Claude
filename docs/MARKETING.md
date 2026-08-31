@@ -233,25 +233,30 @@ in it. Do not use a bulk sender.
 
 ## SEO: the slow part that eventually wins
 
-These search terms have buying intent and thin competition. Each one wants a
-genuinely useful page — a thin page ranks for nothing and annoys the person who
-lands on it.
+Six pages are already written and live at `/guides`. Each targets a search with
+buying intent and answers it properly, with SafePaste as the obvious next step
+rather than the subject.
 
-| Page to write | Search intent it answers |
+| Page | Search intent it answers |
 |---|---|
 | `/guides/chatgpt-customer-data` | "can I put customer data in chatgpt" |
-| `/guides/redact-before-ai` | "how to remove PII before using AI" |
+| `/guides/redact-pii-before-ai` | "how to remove PII before using AI" |
+| `/guides/what-counts-as-pii` | "what counts as PII" |
 | `/guides/gdpr-and-ai-tools` | "is chatgpt gdpr compliant" |
-| `/guides/hipaa-chatgpt` | "hipaa chatgpt patient notes" |
-| `/guides/law-firm-ai-policy` | "law firm AI policy template" |
-| `/guides/pii-types` | "what counts as PII" |
+| `/guides/hipaa-and-ai-assistants` | "hipaa chatgpt patient notes" |
+| `/guides/ai-use-policy-template` | "AI use policy template" |
 
-Write each as the answer someone actually needs, with SafePaste as the obvious
-next step rather than the subject. Aim for 1,200 words that a professional would
-find worth reading. One a week is plenty.
+The policy template is the one to push hardest. It is a thing people bookmark
+and forward to a colleague, which is how a page acquires the links that make the
+other five rank.
 
-Add each new page to `public/sitemap.xml`, then run `node tools/check.js` to
-confirm the links resolve.
+To add more, edit `tools/build-pages.mjs` (or `tools/guides-extra.mjs`) and run
+`node tools/build-pages.mjs`. The sitemap regenerates from the same list, so it
+can never drift. Then `node tools/check.js` to confirm every link resolves.
+
+This is the slow channel. Expect nothing for two months and a compounding
+trickle after that. It is also the only one that does not need you to post
+anything.
 
 ---
 

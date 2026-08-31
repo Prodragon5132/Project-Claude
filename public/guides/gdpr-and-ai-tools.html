@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Is ChatGPT GDPR compliant? — SafePaste</title>
+<meta name="description" content="The question is malformed, and the useful version has a clear answer. What GDPR actually requires when you use an AI assistant with personal data, and the controls that satisfy it.">
+<link rel="canonical" href="https://safepaste-alpha.vercel.app/guides/gdpr-and-ai-tools">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<meta name="theme-color" content="#3448d0">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="SafePaste">
+<meta property="og:title" content="Is ChatGPT GDPR compliant?">
+<meta property="og:description" content="The question is malformed, and the useful version has a clear answer. What GDPR actually requires when you use an AI assistant with personal data, and the controls that satisfy it.">
+<meta property="og:url" content="https://safepaste-alpha.vercel.app/guides/gdpr-and-ai-tools">
+<meta property="og:image" content="https://safepaste-alpha.vercel.app/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Is ChatGPT GDPR compliant?">
+<meta name="twitter:description" content="The question is malformed, and the useful version has a clear answer. What GDPR actually requires when you use an AI assistant with personal data, and the controls that satisfy it.">
+<meta name="twitter:image" content="https://safepaste-alpha.vercel.app/assets/img/og.png">
+<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="/">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true" fill="none">
+        <path d="M16 2.6 4.9 7.2v8.5c0 6.9 4.6 12.9 11.1 14.8 6.5-1.9 11.1-7.9 11.1-14.8V7.2L16 2.6Z" fill="currentColor" opacity=".12"/>
+        <path d="M16 2.6 4.9 7.2v8.5c0 6.9 4.6 12.9 11.1 14.8 6.5-1.9 11.1-7.9 11.1-14.8V7.2L16 2.6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M11.4 16.2h9.2M11.4 12.1h9.2M11.4 20.3h5.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      SafePaste
+    </a>
+    <nav>
+      <a href="/#pricing">Pricing</a>
+      <a href="/app" class="btn btn--sm btn--primary">Open the tool</a>
+    </nav>
+  </div>
+</header>
+
+<main class="prose">
+<h1>Is ChatGPT GDPR compliant?</h1>
+<p class="updated">Last updated 31 August 2026</p>
+
+<p>
+  This is not legal advice. It is a working explanation of what the question
+  means, written for people who have to answer it on a Tuesday afternoon.
+</p>
+
+<h2>Why the question does not quite work</h2>
+
+<p>
+  GDPR does not certify products. There is no compliant list. Compliance is a
+  property of what <em>you</em> do with personal data — your lawful basis, your
+  contracts, your security, your retention, your transparency to the people
+  whose data it is. A tool can make that easier or harder. It cannot be
+  compliant on your behalf.
+</p>
+<p>
+  So "is ChatGPT GDPR compliant" resolves into a more useful question:
+  <strong>can I use this assistant with personal data in a way that satisfies my
+  obligations?</strong> That has an answer, and it depends almost entirely on
+  which tier you are on and what you paste.
+</p>
+
+<h2>The four things you actually have to satisfy</h2>
+
+<h3>1. A lawful basis</h3>
+<p>
+  You need one for every processing purpose. If your basis for holding customer
+  data is performance of a contract, sending it to a third party to summarise is
+  a new purpose that needs its own justification. Legitimate interests can cover
+  it, but only after a balancing test you have actually done and written down —
+  not one you assume would pass.
+</p>
+
+<h3>2. A processor agreement, before the data moves</h3>
+<p>
+  Article 28 requires a written contract with anyone processing personal data on
+  your behalf, setting out the subject matter, duration, purpose, categories of
+  data and the processor's obligations. Business and enterprise tiers of the
+  major assistants offer a data processing agreement; consumer tiers generally
+  do not. An employee pasting client data into a personal account has created a
+  disclosure with no Article 28 contract behind it, which is a straightforward
+  problem regardless of how careful the provider is.
+</p>
+
+<h3>3. A transfer mechanism</h3>
+<p>
+  If personal data leaves the UK or EEA, you need a valid mechanism — an
+  adequacy decision, standard contractual clauses, or the relevant data privacy
+  framework. Enterprise agreements normally address this; consumer terms
+  generally leave it to you.
+</p>
+
+<h3>4. Data minimisation, which is the one that helps you</h3>
+<p>
+  Article 5(1)(c) says personal data must be adequate, relevant and limited to
+  what is necessary. This is usually read as a constraint. Read the other way it
+  is a solution: if the identity is not necessary to the task, sending it is a
+  breach of minimisation, and <em>not</em> sending it removes most of the
+  problem in one move.
+</p>
+
+<h2>What the enterprise tiers change</h2>
+
+<p>A business or enterprise agreement typically gives you:</p>
+<ul>
+  <li>A data processing agreement, satisfying Article 28.</li>
+  <li>A commitment not to train on your inputs by default.</li>
+  <li>Defined retention, sometimes configurable.</li>
+  <li>A transfer mechanism for international transfers.</li>
+  <li>Administrative controls and audit visibility.</li>
+</ul>
+<p>
+  That is a genuine improvement and, if you are going to use these tools with
+  personal data at all, it is the necessary foundation. Verify the current terms
+  yourself rather than relying on any summary — they change.
+</p>
+<p>What it does not do:</p>
+<ul>
+  <li>Satisfy Article 5(1)(c). Minimisation still applies. Having a DPA does not
+      make it necessary to send a name.</li>
+  <li>Override a confidentiality obligation to a client that predates it.</li>
+  <li>Help with special category data, which needs an Article 9 condition on top
+      of everything else.</li>
+  <li>Cover the staff working outside the sanctioned account.</li>
+</ul>
+
+<h2>The control that does most of the work</h2>
+
+<p>
+  Strip the identifiers before the text leaves the device. This is not a
+  workaround; it is the mechanism the regulation itself points at. If the
+  document you send contains no personal data, most of the framework above
+  simply does not engage — there is no transfer, no processing by a processor,
+  no minimisation question to answer.
+</p>
+<p>Two conditions have to hold for that to be true, and they are worth stating:</p>
+<ul>
+  <li><strong>The redaction has to happen locally.</strong> A redaction service
+      that uploads your document in order to redact it has performed the transfer
+      you were trying to avoid.</li>
+  <li><strong>The mapping has to stay with you.</strong> If the placeholder-to-real-value
+      mapping is held by a third party, they hold personal data and you are back
+      where you started.</li>
+</ul>
+<p>
+  Where the answer has to come back with real names in it — a drafted reply, a
+  rewritten letter — the reversal also has to happen on your machine.
+  Reversibility is not a convenience here; it is the difference between a
+  workable control and one that gets abandoned.
+</p>
+
+<h2>What to write in your DPIA</h2>
+
+<p>
+  A data protection impact assessment wants specific, verifiable controls.
+  "Staff are instructed not to paste personal data" is a policy, and policies do
+  not survive contact with deadlines. This is more useful:
+</p>
+<blockquote>
+  Personal identifiers are removed from documents before they are shared with
+  the assistant, using client-side software that performs no network
+  transmission. The mapping between placeholder and original value is held only
+  in the employee's browser session and is discarded when the session ends.
+  Employees review the highlighted output before sharing.
+</blockquote>
+<p>
+  That is a control with a mechanism, a boundary and a human check. Whoever
+  reviews your DPIA can assess it.
+</p>
+
+<h2>Residual risk you should record honestly</h2>
+
+<ul>
+  <li>Re-identification from context that contains no identifier.</li>
+  <li>Automated detection missing an unusual name or identifier format.</li>
+  <li>An employee pasting the original rather than the redacted text.</li>
+</ul>
+<p>
+  None of these is a reason not to do it. All of them are reasons to keep the
+  human review step and to write the residual risk down rather than pretending
+  it is zero.
+</p>
+
+<div class="card cta-card">
+  <h2 class="mt-0">Try it on your own document</h2>
+  <p>
+    SafePaste strips the identifiers out of any text in your browser, hands you a
+    version that is safe to paste, and puts the real values back into the answer.
+    Nothing is uploaded — the page cannot reach any server but its own.
+  </p>
+  <p class="mb-0"><a class="btn btn--primary" href="/app">Open SafePaste — free, no sign-up</a></p>
+</div>
+
+<h2>Related</h2>
+<ul>
+  <li><a href="/guides/chatgpt-customer-data">Can you put customer data into ChatGPT?</a></li>
+  <li><a href="/guides/what-counts-as-pii">What actually counts as personal data</a></li>
+  <li><a href="/security">How SafePaste is built, and what it cannot do</a></li>
+</ul>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> SafePaste</span>
+    <nav>
+      <a href="/app">The tool</a>
+      <a href="/guides">Guides</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/security">Security</a>
+      <a href="/refunds">Refunds</a>
+    </nav>
+  </div>
+</footer>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<script type="module" src="/assets/js/site.js"></script>
+</body>
+</html>

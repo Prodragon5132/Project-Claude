@@ -31,6 +31,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://safepaste-alpha.vercel.app/guides/gdpr-and-ai-tools</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://safepaste-alpha.vercel.app/guides/hipaa-and-ai-assistants</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://safepaste-alpha.vercel.app/guides/ai-use-policy-template</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://safepaste-alpha.vercel.app/security</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

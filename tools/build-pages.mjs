@@ -12,6 +12,7 @@
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { EXTRA_GUIDES } from './guides-extra.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = join(root, 'public');
@@ -346,7 +347,7 @@ const LEGAL_PAGES = [
   },
 ];
 
-const GUIDES = [
+const GUIDES_BASE = [
   {
     slug: 'guides/chatgpt-customer-data',
     title: 'Can you put customer data into ChatGPT?',
@@ -823,6 +824,8 @@ ${CTA}
 `,
   },
 ];
+
+const GUIDES = [...GUIDES_BASE, ...EXTRA_GUIDES];
 
 const GUIDE_INDEX = {
   slug: 'guides/index',

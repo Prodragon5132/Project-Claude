@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HIPAA and AI assistants: what you can and cannot paste — SafePaste</title>
+<meta name="description" content="Why a Business Associate Agreement is the whole question, what the eighteen Safe Harbor identifiers are, and how de-identification lets clinical staff use these tools without one.">
+<link rel="canonical" href="https://safepaste-alpha.vercel.app/guides/hipaa-and-ai-assistants">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<meta name="theme-color" content="#3448d0">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="SafePaste">
+<meta property="og:title" content="HIPAA and AI assistants: what you can and cannot paste">
+<meta property="og:description" content="Why a Business Associate Agreement is the whole question, what the eighteen Safe Harbor identifiers are, and how de-identification lets clinical staff use these tools without one.">
+<meta property="og:url" content="https://safepaste-alpha.vercel.app/guides/hipaa-and-ai-assistants">
+<meta property="og:image" content="https://safepaste-alpha.vercel.app/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HIPAA and AI assistants: what you can and cannot paste">
+<meta name="twitter:description" content="Why a Business Associate Agreement is the whole question, what the eighteen Safe Harbor identifiers are, and how de-identification lets clinical staff use these tools without one.">
+<meta name="twitter:image" content="https://safepaste-alpha.vercel.app/assets/img/og.png">
+<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="/">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true" fill="none">
+        <path d="M16 2.6 4.9 7.2v8.5c0 6.9 4.6 12.9 11.1 14.8 6.5-1.9 11.1-7.9 11.1-14.8V7.2L16 2.6Z" fill="currentColor" opacity=".12"/>
+        <path d="M16 2.6 4.9 7.2v8.5c0 6.9 4.6 12.9 11.1 14.8 6.5-1.9 11.1-7.9 11.1-14.8V7.2L16 2.6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M11.4 16.2h9.2M11.4 12.1h9.2M11.4 20.3h5.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      SafePaste
+    </a>
+    <nav>
+      <a href="/#pricing">Pricing</a>
+      <a href="/app" class="btn btn--sm btn--primary">Open the tool</a>
+    </nav>
+  </div>
+</header>
+
+<main class="prose">
+<h1>HIPAA and AI assistants: what you can and cannot paste</h1>
+<p class="updated">Last updated 31 August 2026</p>
+
+<p>
+  This is not legal advice, and HIPAA is a regime where the details matter. It
+  is a practical explanation of the two doors available to a covered entity, and
+  why most staff only have access to one of them.
+</p>
+
+<h2>The rule in one sentence</h2>
+
+<p>
+  A covered entity may not disclose protected health information to a vendor
+  without a Business Associate Agreement in place. An AI assistant with no BAA
+  is such a vendor. Pasting a patient's information into it is a disclosure, and
+  it happens the moment you press the key — not when the model responds, and not
+  only if it trains on the data.
+</p>
+
+<h2>Door one: get a BAA</h2>
+
+<p>
+  Some AI providers will sign a Business Associate Agreement, generally on their
+  enterprise or healthcare-specific offerings. If your organisation has one in
+  place, has configured the account accordingly, and staff are using that
+  account, PHI can flow within the terms of that agreement.
+</p>
+<p>Three things go wrong with this in practice:</p>
+<ul>
+  <li>The BAA covers a specific product and configuration. The consumer app
+      from the same company is usually not covered.</li>
+  <li>Staff who cannot access the sanctioned account use the one they can. This
+      is the most common failure and it is invisible until something surfaces.</li>
+  <li>The agreement covers the assistant, not everything staff paste into
+      everything else.</li>
+</ul>
+
+<h2>Door two: de-identify first</h2>
+
+<p>
+  De-identified health information is not PHI, and the rule does not apply to
+  it. That is the whole basis of this route. HIPAA gives two methods.
+</p>
+
+<h3>Expert determination</h3>
+<p>
+  A qualified statistician determines and documents that the risk of
+  re-identification is very small. Rigorous, defensible, and not something
+  anyone is going to arrange before summarising a discharge letter.
+</p>
+
+<h3>Safe Harbor</h3>
+<p>
+  Remove eighteen categories of identifier, and have no actual knowledge that
+  the remainder could identify the individual. This is the method that is
+  actually usable day to day, because it is a checklist.
+</p>
+
+<h2>The eighteen Safe Harbor identifiers</h2>
+
+<ol>
+  <li>Names.</li>
+  <li>All geographic subdivisions smaller than a state, including street
+      address, city, county, precinct and ZIP code — with a narrow exception for
+      the first three ZIP digits in sufficiently large areas.</li>
+  <li>All elements of dates except the year, for dates directly related to the
+      individual: birth date, admission date, discharge date, date of death. Ages
+      over 89 must be aggregated.</li>
+  <li>Telephone numbers.</li>
+  <li>Fax numbers.</li>
+  <li>Email addresses.</li>
+  <li>Social Security numbers.</li>
+  <li>Medical record numbers.</li>
+  <li>Health plan beneficiary numbers.</li>
+  <li>Account numbers.</li>
+  <li>Certificate and licence numbers.</li>
+  <li>Vehicle identifiers and serial numbers, including licence plates.</li>
+  <li>Device identifiers and serial numbers.</li>
+  <li>Web URLs.</li>
+  <li>IP addresses.</li>
+  <li>Biometric identifiers, including finger and voice prints.</li>
+  <li>Full-face photographs and comparable images.</li>
+  <li>Any other unique identifying number, characteristic or code.</li>
+</ol>
+
+<h2>The three that get missed</h2>
+
+<p>
+  Names, dates of birth and medical record numbers are rarely forgotten. These
+  three are.
+</p>
+
+<h3>Dates other than birth dates</h3>
+<p>
+  Admission, discharge, procedure and death dates are all on the list, and they
+  are everywhere in clinical text. Safe Harbor allows the year and nothing more
+  precise. "Admitted 14 March 2026" is an identifier; "admitted in 2026" is not.
+</p>
+
+<h3>"Any other unique identifying number, characteristic or code"</h3>
+<p>
+  This catch-all covers the accession numbers, encounter IDs, study numbers and
+  internal reference codes that clinical systems generate constantly. If it
+  points at one person, it is an identifier.
+</p>
+
+<h3>Device identifiers and IP addresses</h3>
+<p>
+  Ordinary in a support ticket or a system log, and squarely on the list.
+</p>
+
+<h2>Where automation helps and where it stops</h2>
+
+<p>
+  Fifteen of the eighteen categories are mechanically detectable. Names, dates,
+  contact details, national and plan identifiers, account and record numbers,
+  device identifiers, URLs and IP addresses can all be found and replaced
+  reliably, and doing it by hand across a caseload is exactly the sort of
+  careful repetitive work people stop doing well when they are busy.
+</p>
+<p>
+  The last one — "no actual knowledge that the information could identify the
+  individual" — is a judgement, and it stays with you. A note saying "the
+  patient who was airlifted after the pile-up on the M6 last Tuesday" contains
+  no listed identifier and identifies someone to anyone who reads the local
+  news. No software will catch that. The point of automating the other
+  seventeen is to leave you with attention to spare for the one that needs you.
+</p>
+
+<h2>A workable process</h2>
+
+<ol>
+  <li>De-identify the text locally, before it leaves the machine.</li>
+  <li>Review what was found and what was left, and read the remainder for
+      identifying context.</li>
+  <li>Use the assistant on the de-identified text.</li>
+  <li>Bring the answer back and restore the identifiers locally, so the letter
+      or note is complete for the record.</li>
+  <li>Keep the mapping out of any third-party system, including your own
+      cloud storage, unless it is already covered.</li>
+</ol>
+
+<p>
+  Step four is the one people skip when they de-identify irreversibly, and it is
+  why irreversible redaction gets abandoned: a discharge summary addressed to
+  "Patient 1" is not a discharge summary.
+</p>
+
+<div class="card cta-card">
+  <h2 class="mt-0">Try it on your own document</h2>
+  <p>
+    SafePaste finds names, dates, MRNs, plan and account numbers, contact details,
+    device identifiers and IP addresses, replaces them in your browser, and puts
+    them back when the answer returns. Nothing is uploaded.
+  </p>
+  <p class="mb-0"><a class="btn btn--primary" href="/app">Open SafePaste — free, no sign-up</a></p>
+</div>
+
+<h2>Related</h2>
+<ul>
+  <li><a href="/guides/what-counts-as-pii">What actually counts as personal data</a></li>
+  <li><a href="/guides/redact-pii-before-ai">How to remove personal data before using an AI tool</a></li>
+</ul>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> SafePaste</span>
+    <nav>
+      <a href="/app">The tool</a>
+      <a href="/guides">Guides</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/security">Security</a>
+      <a href="/refunds">Refunds</a>
+    </nav>
+  </div>
+</footer>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<script type="module" src="/assets/js/site.js"></script>
+</body>
+</html>
