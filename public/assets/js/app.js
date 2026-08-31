@@ -91,11 +91,18 @@ let truncated = false;
 
 /* ------------------------------------------------------------------ utils */
 
+/**
+ * Escapes quotes as well as angle brackets. The highlighted panes are the one
+ * place this file builds HTML from a string, and some of those strings come
+ * from a vault file the user loaded — which is to say, from outside.
+ */
 function escapeHtml(s) {
   return String(s)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 let toastTimer;
@@ -227,7 +234,20 @@ function run() {
   }
 
   const started = performance.now();
-  lastResult = redact(source, currentOptions());
+  try {
+    lastResult = redact(source, currentOptions());
+  } catch (err) {
+    // Nothing should reach here — every detector is individually guarded — but
+    // silently showing an empty output pane would be the worst possible failure
+    // for a tool whose job is to remove data. Say so loudly instead.
+    lastResult = null;
+    $('output').textContent = '';
+    $('out-summary').textContent = 'Redaction failed — do not paste this text anywhere';
+    renderFindings(null);
+    renderRisk(null);
+    $('risk-note').textContent = `Something went wrong: ${err && err.message ? err.message : 'unknown error'}. Reload the page and try again, and please report it.`;
+    return;
+  }
   const elapsed = Math.round(performance.now() - started);
 
   renderOutput(source, lastResult);
